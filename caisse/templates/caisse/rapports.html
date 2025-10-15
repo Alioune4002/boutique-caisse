@@ -1,0 +1,83 @@
+{% extends 'caisse/base.html' %}
+{% block title %}Rapports{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Chiffre d'Affaires</h2>
+    <form method="get" class="mb-3">
+        <div class="row">
+            <div class="col">
+                <input type="date" name="date_debut" value="{{ date_debut }}" class="form-control">
+            </div>
+            <div class="col">
+                <input type="date" name="date_fin" value="{{ date_fin }}" class="form-control">
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Filtrer</button>
+                <a href="?date_debut={{ date_debut }}&date_fin={{ date_fin }}&export_excel=1" class="btn btn-success">Exporter Excel</a>
+            </div>
+        </div>
+    </form>
+    <h3>Total Caisse Aujourd'hui: {{ daily_total }} €</h3>
+    <h3>Par Jour (Détails par mode)</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Espèces</th>
+                <th>Carte</th>
+                <th>Chèque</th>
+                <th>Ticket</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for detail in ca_jour %}
+                <tr>
+                    <td>{{ detail.date }}</td>
+                    <td>{{ detail.especes|default:0 }} €</td>
+                    <td>{{ detail.carte|default:0 }} €</td>
+                    <td>{{ detail.cheque|default:0 }} €</td>
+                    <td>{{ detail.ticket|default:0 }} €</td>
+                    <td>{{ detail.total }} €</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3>Par Semaine</h3>
+    <ul class="list-group mb-3">
+        {% for item in ca_semaine %}
+            <li class="list-group-item">{{ item.semaine }}: {{ item.total }} €</li>
+        {% endfor %}
+    </ul>
+    <h3>Par Mois</h3>
+    <ul class="list-group mb-3">
+        {% for item in ca_mois %}
+            <li class="list-group-item">{{ item.mois }}: {{ item.total }} €</li>
+        {% endfor %}
+    </ul>
+    <h3>Par Année</h3>
+    <ul class="list-group mb-3">
+        {% for item in ca_an %}
+            <li class="list-group-item">{{ item.an }}: {{ item.total }} €</li>
+        {% endfor %}
+    </ul>
+    <h2>Liste des Ventes</h2>
+    <table class="table table-striped">
+        <thead><tr><th>Produit</th><th>Quantité</th><th>Total</th><th>Date</th></tr></thead>
+        <tbody>
+            {% for vente in ventes_list %}
+                <tr><td>{{ vente.produit.nom }}</td><td>{{ vente.quantite }}</td><td>{{ vente.total }} €</td><td>{{ vente.date_vente }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>Moyens de Règlement</h2>
+    <table class="table table-striped">
+        <thead><tr><th>Mode</th><th>Montant</th><th>Date</th></tr></thead>
+        <tbody>
+            {% for paiement in paiements_list %}
+                <tr><td>{{ paiement.get_mode_display }}</td><td>{{ paiement.montant_paye }} €</td><td>{{ paiement.date_paiement }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

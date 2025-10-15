@@ -1,0 +1,1 @@
+web: gunicorn boutique_caisse.wsgi --log-file -

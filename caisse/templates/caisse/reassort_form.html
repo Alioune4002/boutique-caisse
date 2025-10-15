@@ -1,0 +1,17 @@
+{% extends 'caisse/base.html' %}
+{% block title %}Réassort Produit{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Réassort: {{ produit.nom }}</h2>
+    <p>Stock actuel: <strong>{{ produit.stock }}</strong></p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label>Quantité à ajouter:</label>
+            <input type="number" name="quantite" class="form-control" min="1" value="20" required>
+        </div>
+        <button type="submit" class="btn btn-success">Confirmer</button>
+        <a href="{% url 'caisse' %}" class="btn btn-secondary">Retour</a>
+    </form>
+</div>
+{% endblock %}

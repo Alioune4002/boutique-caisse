@@ -1,0 +1,26 @@
+{% extends 'caisse/base.html' %}
+{% block title %}Stocks Critiques{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2>🚨 Produits en stock critique (≤ {{ seuil }} unités)</h2>
+    {% if produits_critiques %}
+        <a href="{% url 'reassort_auto' %}" class="btn btn-danger mb-3">Réassort automatique</a>
+        <table class="table table-striped">
+            <thead><tr><th>Produit</th><th>Stock</th><th>Actions</th></tr></thead>
+            <tbody>
+                {% for produit in produits_critiques %}
+                    <tr class="table-danger">
+                        <td>{{ produit.nom }}</td>
+                        <td><strong>{{ produit.stock }}</strong></td>
+                        <td>
+                            <a href="{% url 'reassort_produit' produit.id %}" class="btn btn-warning btn-sm">Réassort</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-success">Tous les stocks sont OK !</div>
+    {% endif %}
+</div>
+{% endblock %}

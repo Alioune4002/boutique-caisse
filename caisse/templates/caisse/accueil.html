@@ -1,0 +1,79 @@
+{% extends 'caisse/base.html' %}
+{% block title %}Accueil{% endblock %}
+{% block extra_css %}
+<style>
+    .btn-home { width: 200px; height: 100px; font-size: 1.5em; margin: 20px; }
+    .card-guide { transition: transform 0.3s; border: 1px solid #ddd; border-radius: 8px; }
+    .card-guide:hover { transform: scale(1.05); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container mt-5 text-center">
+    <h1>Bienvenue dans Boutique Caisse</h1>
+    <p>Cet outil simple vous aide à gérer votre boutique au quotidien : vendre des produits, suivre vos stocks, encaisser les paiements et consulter vos chiffres de ventes.</p>
+    <div class="d-flex justify-content-center flex-wrap">
+        <a href="{% url 'caisse' %}" class="btn btn-primary btn-home">Aller à la caisse</a>
+        <a href="{% url 'importer_produits' %}" class="btn btn-secondary btn-home">Importer des produits</a>
+        <a href="{% url 'rapports' %}" class="btn btn-info btn-home">Voir les rapports</a>
+        <a href="{% url 'produits_critiques' %}" class="btn btn-warning btn-home">Gérer les stocks</a>
+    </div>
+    <h2 class="mt-5">Comment utiliser l'outil ?</h2>
+    <p>Voici un guide simple étape par étape pour bien démarrer et utiliser toutes les fonctions.</p>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card card-guide">
+                <div class="card-body">
+                    <h5 class="card-title">1. La caisse : vendre des produits</h5>
+                    <p class="card-text">
+                        - Cliquez sur les boutons des produits pour les ajouter au panier du client.<br>
+                        - Cliquez plusieurs fois sur le même produit si le client en veut plusieurs.<br>
+                        - Vous pouvez faire une remise sur tout le panier ou sur un produit spécifique.<br>
+                        - Pour payer, entrez les montants par moyen de paiement (espèces, carte, etc.) jusqu'à atteindre le total.<br>
+                        - Si besoin, videz le panier pour recommencer.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-guide">
+                <div class="card-body">
+                    <h5 class="card-title">2. Gérer les stocks</h5>
+                    <p class="card-text">
+                        - Dans la caisse, les produits avec peu de stock (moins de 5) apparaissent en rouge pour vous alerter.<br>
+                        - Cliquez sur "Réassort" pour ajouter manuellement des unités à un produit.<br>
+                        - Dans la page "Stocks", vous pouvez faire un réassort automatique pour tous les produits bas en stock (ils passent à 20 unités).
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-guide">
+                <div class="card-body">
+                    <h5 class="card-title">3. Consulter les rapports</h5>
+                    <p class="card-text">
+                        - Voyez vos ventes totales par jour, semaine, mois ou année.<br>
+                        - Une liste détaille toutes les ventes (produit, quantité, prix, date).<br>
+                        - Une autre liste montre les paiements (mode et montant).<br>
+                        - Le total de la journée est affiché pour votre comptabilité.<br>
+                        - Vous pouvez filtrer par période et exporter tout en fichier Excel pour imprimer ou archiver.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card card-guide">
+                <div class="card-body">
+                    <h5 class="card-title">Autres fonctions utiles</h5>
+                    <p class="card-text">
+                        - Importer des produits : Préparez un fichier CSV avec colonnes "nom", "prix", "stock" et chargez-le pour ajouter rapidement beaucoup de produits.<br>
+                        - Tout est sauvegardé automatiquement, et vous pouvez supprimer un produit si besoin (attention, cela efface ses ventes passées).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="mt-4">Si vous avez des questions, tout est intuitif ! Commencez par ajouter des produits via Import ou manuellement dans la caisse.</p>
+</div>
+{% endblock %}
